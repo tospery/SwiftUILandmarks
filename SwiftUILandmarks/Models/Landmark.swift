@@ -1,9 +1,9 @@
-//
-//  ContentView.swift
-//  Landmarks
-//
-//  Created by 杨建祥 on 2024/7/15.
-//
+/*
+See LICENSE folder for this sample’s licensing information.
+
+Abstract:
+The model for an individual landmark.
+*/
 
 import SwiftUI
 import CoreLocation
@@ -11,20 +11,24 @@ import CoreLocation
 struct Landmark: Hashable, Codable, Identifiable {
     var id: Int
     var name: String
+    fileprivate var imageName: String
+    fileprivate var coordinates: Coordinates
     var state: String
     var park: String
     var category: Category
-    fileprivate var imageName: String
-    fileprivate var coordinates: Coordinates
-    
+    var isFavorite: Bool
+
+    var locationCoordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude)
+    }
+
     enum Category: String, CaseIterable, Codable, Hashable {
         case featured = "Featured"
         case lakes = "Lakes"
         case rivers = "Rivers"
-    }
-    
-    var locationCoordinate: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
+        case mountains = "Mountains"
     }
 }
 
